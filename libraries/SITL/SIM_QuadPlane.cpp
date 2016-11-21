@@ -58,6 +58,10 @@ QuadPlane::QuadPlane(const char *home_str, const char *frame_str) :
         frame_type = "tilttri";
         // fwd motor gives zero thrust
         thrust_scale = 0;
+    } else if (strstr(frame_str, "tiltquad")) {
+        frame_type = "tiltquad";
+        // fwd motor gives zero thrust
+        thrust_scale = 0;
     }
     frame = Frame::find_frame(frame_type);
     if (frame == nullptr) {

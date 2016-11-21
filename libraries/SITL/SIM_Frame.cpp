@@ -121,6 +121,17 @@ static Motor firefly_motors[] =
 };
 
 /*
+  tiltquad is a plus configuration quad that has motors on wings, nose and tail and can tilt the motors on the wing using channel 9
+*/
+static Motor tiltquad_motors[] =
+{
+    Motor(AP_MOTORS_MOT_1,  90, AP_MOTORS_MATRIX_YAW_FACTOR_CCW, 2, -1, 0, 0, AP_MOTORS_MOT_7, 0, -120),
+    Motor(AP_MOTORS_MOT_2, -90, AP_MOTORS_MATRIX_YAW_FACTOR_CW, 4, -1, 0, 0, AP_MOTORS_MOT_8, 0, -120),
+    Motor(AP_MOTORS_MOT_3,   0, AP_MOTORS_MATRIX_YAW_FACTOR_CW,  1),
+    Motor(AP_MOTORS_MOT_4, 180, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  3)
+};
+
+/*
   table of supported frame types. String order is important for
   partial name matching
  */
@@ -136,6 +147,7 @@ static Frame supported_frames[] =
     Frame("octa",      8, octa_motors),
     Frame("tri",       3, tri_motors),
     Frame("tilttri",   3, tilttri_motors),
+    Frame("tiltquad",  4, tiltquad_motors),
     Frame("y6",        6, y6_motors),
     Frame("firefly",   6, firefly_motors)
 };
@@ -208,4 +220,3 @@ void Frame::calculate_forces(const Aircraft &aircraft,
                            aircraft.rand_normal(0, 1),
                            aircraft.rand_normal(0, 1)) * accel_noise * noise_scale;
 }
-
