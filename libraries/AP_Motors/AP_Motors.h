@@ -4,6 +4,7 @@
 #include "AP_MotorsMulticopter.h"
 #include "AP_MotorsMatrix.h"
 #include "AP_MotorsTri.h"
+#include "AP_MotorsTiltQuad.h"
 #include "AP_MotorsQuad.h"
 #include "AP_MotorsHexa.h"
 #include "AP_MotorsY6.h"

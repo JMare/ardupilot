@@ -23,7 +23,8 @@
 #if FRAME_CONFIG == TRI_FRAME
 #define AP_MOTORS_CLASS AP_MotorsTri
 #else
-#define AP_MOTORS_CLASS AP_MotorsMulticopter
+//hack :(
+#define AP_MOTORS_CLASS AP_MotorsTiltQuad
 #endif
 
 /*

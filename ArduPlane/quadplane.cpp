@@ -387,31 +387,39 @@ bool QuadPlane::setup(void)
       that the objects don't affect the vehicle unless enabled and
       also saves memory when not in use
      */
-    switch ((enum frame_class)frame_class.get()) {
-    case FRAME_CLASS_QUAD:
-        setup_default_channels(4);
-        motors = new AP_MotorsQuad(plane.scheduler.get_loop_rate_hz());
-        break;
-    case FRAME_CLASS_HEXA:
-        setup_default_channels(6);
-        motors = new AP_MotorsHexa(plane.scheduler.get_loop_rate_hz());
-        break;
-    case FRAME_CLASS_OCTA:
-        setup_default_channels(8);
-        motors = new AP_MotorsOcta(plane.scheduler.get_loop_rate_hz());
-        break;
-    case FRAME_CLASS_OCTAQUAD:
-        setup_default_channels(8);
-        motors = new AP_MotorsOctaQuad(plane.scheduler.get_loop_rate_hz());
-        break;
-    case FRAME_CLASS_Y6:
-        setup_default_channels(7);
-        motors = new AP_MotorsY6(plane.scheduler.get_loop_rate_hz());
-        break;
-    default:
-        hal.console->printf("Unknown frame class %u\n", (unsigned)frame_class.get());
-        goto failed;
-    }
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor1, CH_5);
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor2, CH_6);
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor3, CH_7);
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor4, CH_8);
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor7, CH_9);
+        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor8, CH_10);
+        motors = new AP_MotorsTiltQuad(plane.scheduler.get_loop_rate_hz());
+
+//    switch ((enum frame_class)frame_class.get()) {
+//    case FRAME_CLASS_QUAD:
+//        setup_default_channels(4);
+//        motors = new AP_MotorsQuad(plane.scheduler.get_loop_rate_hz());
+//        break;
+//    case FRAME_CLASS_HEXA:
+//        setup_default_channels(6);
+//        motors = new AP_MotorsHexa(plane.scheduler.get_loop_rate_hz());
+//        break;
+//    case FRAME_CLASS_OCTA:
+//        setup_default_channels(8);
+//        motors = new AP_MotorsOcta(plane.scheduler.get_loop_rate_hz());
+//        break;
+//    case FRAME_CLASS_OCTAQUAD:
+//        setup_default_channels(8);
+//        motors = new AP_MotorsOctaQuad(plane.scheduler.get_loop_rate_hz());
+//        break;
+//    case FRAME_CLASS_Y6:
+//        setup_default_channels(7);
+//        motors = new AP_MotorsY6(plane.scheduler.get_loop_rate_hz());
+//        break;
+//    default:
+//        hal.console->printf("Unknown frame class %u\n", (unsigned)frame_class.get());
+//        goto failed;
+//    }
 #endif // AP_MOTORS_CLASS
     const static char *strUnableToAllocate = "Unable to allocate";
     if (!motors) {

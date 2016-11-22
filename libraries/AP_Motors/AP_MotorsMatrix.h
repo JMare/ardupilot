@@ -30,7 +30,7 @@ public:
     void                set_frame_orientation(uint8_t new_orientation);
 
     // enable - starts allowing signals to be sent to motors
-    void                enable();
+    virtual void                enable();
 
     // output_test - spin a motor at the pwm value specified
     //  motor_seq is the motor's sequence number from 1 to the number of motors on the frame
@@ -38,7 +38,7 @@ public:
     void                output_test(uint8_t motor_seq, int16_t pwm);
 
     // output_to_motors - sends minimum values out to the motors
-    void                output_to_motors();
+    virtual void                output_to_motors();
 
     // add_motor using just position and yaw_factor (or prop direction)
     void                add_motor(int8_t motor_num, float angle_degrees, float yaw_factor, uint8_t testing_order);
@@ -61,7 +61,7 @@ public:
 
 protected:
     // output - sends commands to the motors
-    void                output_armed_stabilizing();
+    virtual void                output_armed_stabilizing();
 
     // add_motor using raw roll, pitch, throttle and yaw factors
     void                add_motor_raw(int8_t motor_num, float roll_fac, float pitch_fac, float yaw_fac, uint8_t testing_order);
