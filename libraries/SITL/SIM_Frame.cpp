@@ -126,8 +126,8 @@ static Motor firefly_motors[] =
 static Motor tiltquad_motors[] =
 {
     //chan 9 and 10
-    Motor(AP_MOTORS_MOT_1,  90, AP_MOTORS_MATRIX_YAW_FACTOR_CCW, 2, -1, 0, 0, 8, 0, -120),
-    Motor(AP_MOTORS_MOT_2, -90, AP_MOTORS_MATRIX_YAW_FACTOR_CW, 4, -1, 0, 0, 9, 0, -120),
+    Motor(AP_MOTORS_MOT_1,  90, AP_MOTORS_MATRIX_YAW_FACTOR_CCW, 2, -1, 0, 0, AP_MOTORS_MOT_5, 60, -60),
+    Motor(AP_MOTORS_MOT_2, -90, AP_MOTORS_MATRIX_YAW_FACTOR_CW, 4, -1, 0, 0, AP_MOTORS_MOT_6, 60, -60),
     Motor(AP_MOTORS_MOT_3,   0, AP_MOTORS_MATRIX_YAW_FACTOR_CW,  1),
     Motor(AP_MOTORS_MOT_4, 180, AP_MOTORS_MATRIX_YAW_FACTOR_CCW,  3)
 };
