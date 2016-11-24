@@ -387,13 +387,13 @@ bool QuadPlane::setup(void)
       that the objects don't affect the vehicle unless enabled and
       also saves memory when not in use
      */
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor1, CH_5);
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor2, CH_6);
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor3, CH_7);
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor4, CH_8);
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor7, CH_9);
-        RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor8, CH_10);
-        motors = new AP_MotorsTiltQuad(plane.scheduler.get_loop_rate_hz());
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor1, CH_5);
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor2, CH_6);
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor3, CH_7);
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor4, CH_8);
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor7, CH_9);
+    RC_Channel_aux::set_aux_channel_default(RC_Channel_aux::k_motor8, CH_10);
+    motors = new AP_MotorsTiltQuad(plane.scheduler.get_loop_rate_hz());
 
 //    switch ((enum frame_class)frame_class.get()) {
 //    case FRAME_CLASS_QUAD:

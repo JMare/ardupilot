@@ -23,6 +23,7 @@ public:
     virtual void        output_to_motors();
     virtual void        enable();
     virtual void        output_armed_stabilizing();
+    virtual void        thrust_compensation(void);
 
     int16_t calc_yaw_radio_output(float yaw_input, float yaw_input_max, uint8_t left);
 
@@ -36,7 +37,7 @@ protected:
     uint16_t        _yaw_left_servo_max = 2000;                     // Maximum pwm of yaw servo
     uint16_t        _yaw_right_servo_min = 1000;                     // Minimum pwm of yaw servo
     uint16_t        _yaw_right_servo_max = 2000;                     // Maximum pwm of yaw servo
-    uint16_t _yaw_servo_angle_max_deg = 60;
+    uint16_t _yaw_servo_angle_max_deg = 90;
 
     float _pivot_angle_left;
     float _pivot_angle_right;

@@ -15,7 +15,8 @@ void QuadPlane::tiltrotor_slew(float newtilt)
     tilt.current_tilt = constrain_float(newtilt, tilt.current_tilt-max_change, tilt.current_tilt+max_change);
 
     // translate to 0..1000 range and output
-    RC_Channel_aux::set_servo_out_for(RC_Channel_aux::k_motor_tilt, 1000 * tilt.current_tilt);
+    //dont do this because this is controlled by plane
+    // RC_Channel_aux::set_servo_out_for(RC_Channel_aux::k_motor_tilt, 1000 * tilt.current_tilt);
 
     // setup tilt compensation
     motors->set_thrust_compensation_callback(FUNCTOR_BIND_MEMBER(&QuadPlane::tilt_compensate, void, float *, uint8_t));
@@ -83,6 +84,7 @@ void QuadPlane::tiltrotor_update(void)
     if (plane.control_mode == QSTABILIZE ||
         plane.control_mode == QHOVER) {
         tiltrotor_slew(0);
+        control_tilt = false;
         return;
     }
 
@@ -91,6 +93,7 @@ void QuadPlane::tiltrotor_update(void)
         // we are transitioning to fixed wing - tilt the motors all
         // the way forward
         tiltrotor_slew(1);
+        control_tilt = true;
     } else {
         // until we have completed the transition we limit the tilt to
         // Q_TILT_MAX. Anything above 50% throttle gets
@@ -98,6 +101,7 @@ void QuadPlane::tiltrotor_update(void)
         // relies heavily on Q_VFWD_GAIN being set appropriately.
         float settilt = constrain_float(plane.channel_throttle->get_servo_out() / 50.0f, 0, 1);
         tiltrotor_slew(settilt * tilt.max_angle_deg / 90.0f);
+        control_tilt = true;
     }
 }
 
@@ -170,5 +174,10 @@ void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
         for (uint8_t i=0; i<num_motors; i++) {
             thrust[i] *= scale;
         }
+    }
+
+    if(control_tilt){
+        thrust[4] = (tilt.current_tilt*90)*-1; 
+        thrust[5] = (tilt.current_tilt*90)*-1; 
     }
 }

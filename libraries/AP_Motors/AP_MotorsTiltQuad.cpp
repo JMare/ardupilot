@@ -135,3 +135,30 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
 
     return ret;
 }
+
+void AP_MotorsTiltQuad::thrust_compensation(void)
+{
+
+    if(_thrust_compensation_callback){
+        float _packedthrusttilt[6];
+        //pack motor thrusts into tilt
+        _packedthrusttilt[0] = _thrust_rpyt_out[0];
+        _packedthrusttilt[1] = _thrust_rpyt_out[1];
+        _packedthrusttilt[2] = _thrust_rpyt_out[2];
+        _packedthrusttilt[3] = _thrust_rpyt_out[3];
+
+        //now pack angles
+        _packedthrusttilt[4] = _pivot_angle_left;
+        _packedthrusttilt[5] = _pivot_angle_right;
+
+        _thrust_compensation_callback(_packedthrusttilt,4);
+
+       _thrust_rpyt_out[0] = _packedthrusttilt[0];
+       _thrust_rpyt_out[1] = _packedthrusttilt[1];
+       _thrust_rpyt_out[2] = _packedthrusttilt[2];
+       _thrust_rpyt_out[3] = _packedthrusttilt[3];
+
+       _pivot_angle_left = _packedthrusttilt[4];
+       _pivot_angle_right = _packedthrusttilt[5];
+    }
+}

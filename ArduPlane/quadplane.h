@@ -23,8 +23,7 @@
 #if FRAME_CONFIG == TRI_FRAME
 #define AP_MOTORS_CLASS AP_MotorsTri
 #else
-//hack :(
-#define AP_MOTORS_CLASS AP_MotorsTiltQuad
+#define AP_MOTORS_CLASS AP_MotorsMulticopter
 #endif
 
 /*
@@ -356,4 +355,6 @@ public:
                                      uint8_t motor_count);
 private:
     void motor_test_stop();
+
+    bool control_tilt = false;
 };
