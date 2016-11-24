@@ -15,7 +15,7 @@ void QuadPlane::tiltrotor_slew(float newtilt)
     tilt.current_tilt = constrain_float(newtilt, tilt.current_tilt-max_change, tilt.current_tilt+max_change);
 
     // translate to 0..1000 range and output
-    //dont do this because this is controlled by plane
+    //dont do this because this is controlled by copter
     // RC_Channel_aux::set_servo_out_for(RC_Channel_aux::k_motor_tilt, 1000 * tilt.current_tilt);
 
     // setup tilt compensation
@@ -177,7 +177,7 @@ void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
     }
 
     if(control_tilt){
-        thrust[4] = (tilt.current_tilt*90)*-1; 
-        thrust[5] = (tilt.current_tilt*90)*-1; 
+        thrust[4] = (tilt.current_tilt*1.5708)*-1; 
+        thrust[5] = (tilt.current_tilt*1.5708)*-1; 
     }
 }
