@@ -308,7 +308,7 @@ _options_for_frame = {
     },
     "quadplane-tiltquad": {
         "waf_target": "bin/arduplane",
-        "default_params_filename": "default_params/quadplane.parm",
+        "default_params_filename": "default_params/quadplane-tiltquad.parm",
     },
     "quadplane-tri": {
         "make_target": "sitl-tri",
