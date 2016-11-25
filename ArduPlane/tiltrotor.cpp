@@ -6,6 +6,7 @@
  */
 
 
+#define Q_TILT_FREEZE_YAW_RAD 0.2f
 /*
   output a slew limited tiltrotor angle. tilt is from 0 to 1
  */
@@ -176,7 +177,8 @@ void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
         }
     }
 
-    if(control_tilt){
+    //if only a little bit of tilt keep yaw controlling
+    if(control_tilt && tilt.current_tilt > Q_TILT_FREEZE_YAW_RAD){
         thrust[4] = (tilt.current_tilt*1.5708)*-1; 
         thrust[5] = (tilt.current_tilt*1.5708)*-1; 
     }
