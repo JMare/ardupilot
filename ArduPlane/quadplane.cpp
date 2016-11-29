@@ -11,7 +11,7 @@ const AP_Param::GroupInfo QuadPlane::var_info[] = {
 
     // @Group: M_
     // @Path: ../libraries/AP_Motors/AP_MotorsMulticopter.cpp
-    AP_SUBGROUPPTR(motors, "M_", 2, QuadPlane, AP_MOTORS_CLASS),
+    AP_SUBGROUPPTR(motors, "M_", 2, QuadPlane, AP_MotorsTiltQuad),
 
     // 3 ~ 8 were used by quadplane attitude control PIDs
 

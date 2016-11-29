@@ -16,7 +16,9 @@ public:
     /// Constructor
     AP_MotorsTiltQuad(uint16_t loop_rate, uint16_t speed_hz = AP_MOTORS_SPEED_DEFAULT) :
         AP_MotorsMatrix(loop_rate, speed_hz)
-        { };
+        {
+            AP_Param::setup_object_defaults(this, var_info);
+        };
 
     // setup_motors - configures the motors for a quad
     virtual void        setup_motors();
@@ -27,17 +29,19 @@ public:
 
     int16_t calc_yaw_radio_output(float yaw_input, float yaw_input_max, uint8_t left);
 
+
+    static const struct AP_Param::GroupInfo var_info[];
 protected:
 
-    int8_t _yaw_left_reverse = -1;
-    int8_t _yaw_right_reverse = -1;
-    uint16_t _yaw_left_servo_trim = 1500;
-    uint16_t _yaw_right_servo_trim = 1500;
-    uint16_t        _yaw_left_servo_min = 1000;                     // Minimum pwm of yaw servo
-    uint16_t        _yaw_left_servo_max = 2000;                     // Maximum pwm of yaw servo
-    uint16_t        _yaw_right_servo_min = 1000;                     // Minimum pwm of yaw servo
-    uint16_t        _yaw_right_servo_max = 2000;                     // Maximum pwm of yaw servo
-    uint16_t _yaw_servo_angle_max_deg = 90;
+    AP_Int8 _yaw_left_reverse;
+    AP_Int8 _yaw_right_reverse;
+    AP_Int16 _yaw_left_servo_trim;
+    AP_Int16 _yaw_right_servo_trim;
+    AP_Int16        _yaw_left_servo_min;                     // Minimum pwm of yaw servo
+    AP_Int16        _yaw_left_servo_max;                     // Maximum pwm of yaw servo
+    AP_Int16        _yaw_right_servo_min;                     // Minimum pwm of yaw servo
+    AP_Int16        _yaw_right_servo_max;                     // Maximum pwm of yaw servo
+    AP_Int16 _yaw_servo_angle_max_deg;
 
     float _pivot_angle_left;
     float _pivot_angle_right;

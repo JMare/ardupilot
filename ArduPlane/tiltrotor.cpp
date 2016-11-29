@@ -6,6 +6,8 @@
  */
 
 
+//below this yaw control, above this no yaw control
+// this is essentially how much the tilt rotors will instantly jump at the start of a transition, making the start sudden helps prevent yaw instability once tilt control stops
 #define Q_TILT_FREEZE_YAW_RAD 0.2f
 /*
   output a slew limited tiltrotor angle. tilt is from 0 to 1
@@ -41,7 +43,7 @@ void QuadPlane::tiltrotor_update(void)
     
     if (!in_vtol_mode() && !assisted_flight) {
         // we are in pure fixed wing mode. Move the tiltable motors all the way forward and run them as
-        // a forward motor
+        // a forwarhttps://www.google.com.au/search?client=ubuntu&channel=fs&q=r%2Fmavproxy&ie=utf-8&oe=utf-8&gfe_rd=cr&ei=XuM8WLXHGa7u8wf7np7YDAd motor
         tiltrotor_slew(1);
 
         float new_throttle = plane.channel_throttle->get_servo_out()*0.01f;

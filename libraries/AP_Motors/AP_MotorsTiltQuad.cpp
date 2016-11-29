@@ -24,6 +24,25 @@
 #include "AP_MotorsTiltQuad.h"
 
 extern const AP_HAL::HAL& hal;
+
+const AP_Param::GroupInfo AP_MotorsTiltQuad::var_info[] = {
+    // variables from parent
+    AP_NESTEDGROUPINFO(AP_MotorsMulticopter, 0),
+
+    // use tricopter param group.... not proud
+
+    AP_GROUPINFO("YAW_SV_L_RV", 30, AP_MotorsTiltQuad, _yaw_left_reverse, -1),
+    AP_GROUPINFO("YAW_SV_R_RV", 31, AP_MotorsTiltQuad, _yaw_right_reverse, -1),
+    AP_GROUPINFO("YAW_SV_L_TR", 32, AP_MotorsTiltQuad, _yaw_left_servo_trim, 1500),
+    AP_GROUPINFO("YAW_SV_R_TR", 33, AP_MotorsTiltQuad, _yaw_right_servo_trim, 1500),
+    AP_GROUPINFO("YAW_SV_L_MN", 34, AP_MotorsTiltQuad, _yaw_left_servo_min, 1000),
+    AP_GROUPINFO("YAW_SV_R_MN", 35, AP_MotorsTiltQuad, _yaw_right_servo_min, 1000),
+    AP_GROUPINFO("YAW_SV_L_MX", 36, AP_MotorsTiltQuad, _yaw_left_servo_max, 2000),
+    AP_GROUPINFO("YAW_SV_R_MX", 37, AP_MotorsTiltQuad, _yaw_right_servo_max, 2000),
+    AP_GROUPINFO("YAW_SV_A_MX", 38, AP_MotorsTiltQuad, _yaw_servo_angle_max_deg, 90),
+    AP_GROUPEND
+};
+
 // setup_motors - configures the motors for a quad
 void AP_MotorsTiltQuad::setup_motors()
 {
