@@ -41,7 +41,8 @@ protected:
     AP_Int16        _yaw_left_servo_max;                     // Maximum pwm of yaw servo
     AP_Int16        _yaw_right_servo_min;                     // Minimum pwm of yaw servo
     AP_Int16        _yaw_right_servo_max;                     // Maximum pwm of yaw servo
-    AP_Int16 _yaw_servo_angle_max_deg;
+    AP_Int16 _yaw_servo_angle_max_deg; //angle range of servo between min and max pwm
+    AP_Int16 _yaw_servo_angle_tilt_max_deg; //max degrees used in yaw control
 
     float _pivot_angle_left;
     float _pivot_angle_right;

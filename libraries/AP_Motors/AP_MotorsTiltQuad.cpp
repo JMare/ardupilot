@@ -40,6 +40,7 @@ const AP_Param::GroupInfo AP_MotorsTiltQuad::var_info[] = {
     AP_GROUPINFO("YAW_SV_L_MX", 36, AP_MotorsTiltQuad, _yaw_left_servo_max, 2000),
     AP_GROUPINFO("YAW_SV_R_MX", 37, AP_MotorsTiltQuad, _yaw_right_servo_max, 2000),
     AP_GROUPINFO("YAW_SV_A_MX", 38, AP_MotorsTiltQuad, _yaw_servo_angle_max_deg, 90),
+    AP_GROUPINFO("YAW_SV_A_TM", 39, AP_MotorsTiltQuad, _yaw_servo_angle_tilt_max_deg, 10),
     AP_GROUPEND
 };
 
@@ -112,9 +113,9 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
 
     float yaw_thrust = _yaw_in * get_compensation_gain()*sinf(radians(_yaw_servo_angle_max_deg));
     _pivot_angle_left = safe_asin(yaw_thrust);
-    if (fabsf(_pivot_angle_left) > radians(_yaw_servo_angle_max_deg)) {
+    if (fabsf(_pivot_angle_left) > radians(_yaw_servo_angle_tilt_max_deg)) {
         limit.yaw = true;
-        _pivot_angle_left = constrain_float(_pivot_angle_left, -radians(_yaw_servo_angle_max_deg), radians(_yaw_servo_angle_max_deg));
+        _pivot_angle_left = constrain_float(_pivot_angle_left, -radians(_yaw_servo_angle_tilt_max_deg), radians(_yaw_servo_angle_tilt_max_deg));
     }
     _pivot_angle_right = - _pivot_angle_left;
 
