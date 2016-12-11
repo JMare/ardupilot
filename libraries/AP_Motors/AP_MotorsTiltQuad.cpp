@@ -121,6 +121,16 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
 
     //call parent to do motor outputs
     AP_MotorsMatrix::output_armed_stabilizing();
+
+    //Now we need to do thrust compensation
+    //how i dont know
+
+    //did i get the motor right
+    //_thrust_rpyt_out[0] = _thrust_rpyt_out[0]/cosf(_pivot_angle_right);
+    //_thrust_rpyt_out[1] = _thrust_rpyt_out[1]/cosf(_pivot_angle_left);
+
+    //should also constrain the angle if we have maxed out the thrust
+
 }
 
 

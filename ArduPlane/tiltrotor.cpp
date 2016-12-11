@@ -8,7 +8,9 @@
 
 //below this yaw control, above this no yaw control
 // this is essentially how much the tilt rotors will instantly jump at the start of a transition, making the start sudden helps prevent yaw instability once tilt control stops
-#define Q_TILT_FREEZE_YAW_RAD 0.2f
+//0.2 was a very big jump in real life
+//try 0.05
+#define Q_TILT_FREEZE_YAW_RAD 0.02f
 /*
   output a slew limited tiltrotor angle. tilt is from 0 to 1
  */
@@ -181,7 +183,7 @@ void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
 
     //if only a little bit of tilt keep yaw controlling
     if(control_tilt && tilt.current_tilt > Q_TILT_FREEZE_YAW_RAD){
-        thrust[4] = (tilt.current_tilt*1.5708)*-1; 
-        thrust[5] = (tilt.current_tilt*1.5708)*-1; 
+        thrust[4] = (tilt.current_tilt*1.5708)*1; 
+        thrust[5] = (tilt.current_tilt*1.5708)*1; 
     }
 }
