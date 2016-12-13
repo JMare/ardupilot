@@ -226,6 +226,7 @@ void AP_MotorsMatrix::output_armed_stabilizing()
     }
 
     // add yaw to intermediate numbers for each motor
+    /* 
     rpy_low = 0.0f;
     rpy_high = 0.0f;
     for (i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
@@ -242,6 +243,7 @@ void AP_MotorsMatrix::output_armed_stabilizing()
             }
         }
     }
+    */
 
     // check everything fits
     throttle_thrust_best_rpy = MIN(0.5f - (rpy_low+rpy_high)/2.0, _throttle_avg_max);

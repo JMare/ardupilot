@@ -52,10 +52,10 @@ void AP_MotorsTiltQuad::setup_motors()
 
     // plus frame set-up motors on 5-8
     // pretend motors have no coupling to yaw
-    add_motor(AP_MOTORS_MOT_1,  90, 0, 2);
-    add_motor(AP_MOTORS_MOT_2, -90, 0, 4);
-    add_motor(AP_MOTORS_MOT_3,   0, 0,  1);
-    add_motor(AP_MOTORS_MOT_4, 180, 0,  3);
+    add_motor(AP_MOTORS_MOT_1,  90, 0, 2); //c5 right wing
+    add_motor(AP_MOTORS_MOT_2, -90, 0, 4); //c6 left wing
+    add_motor(AP_MOTORS_MOT_3,   0, 0,  1); //c7 front edf
+    add_motor(AP_MOTORS_MOT_4, 180, 0,  3); //c8 right edf
 
     //Add servos
     add_motor_num(AP_MOTORS_CH_TILTQUAD_YAW_LEFT);
@@ -125,12 +125,14 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
     //Now we need to do thrust compensation
     //how i dont know
 
+    //disable for now but works in sim
     //did i get the motor right
-    //_thrust_rpyt_out[0] = _thrust_rpyt_out[0]/cosf(_pivot_angle_right);
-    //_thrust_rpyt_out[1] = _thrust_rpyt_out[1]/cosf(_pivot_angle_left);
+//    _thrust_rpyt_out[0] = _thrust_rpyt_out[0]/cosf(_pivot_angle_right);
+    //   _thrust_rpyt_out[1] = _thrust_rpyt_out[1]/cosf(_pivot_angle_left);
 
     //should also constrain the angle if we have maxed out the thrust
 
+    //here is also where i would scale the props over the edfs
 }
 
 
@@ -140,7 +142,8 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
 
     if(left)
     {
-    if (_yaw_left_reverse < 0) {
+        //if (_yaw_left_reverse < 0) {
+    if(true){
         yaw_input = -yaw_input;
     }
 
@@ -152,7 +155,7 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
     }
     else 
     {
-        if (_yaw_right_reverse < 0) {
+        if (false) {
             yaw_input = -yaw_input;
         }
 
