@@ -9,6 +9,16 @@
 
 #define AP_MOTORS_CH_TILTQUAD_YAW_LEFT CH_9
 #define AP_MOTORS_CH_TILTQUAD_YAW_RIGHT CH_10
+
+#define RIGHT_PROP 0
+#define LEFT_PROP 1
+#define FRONT_EDF 2
+#define BACK_EDF 3
+
+#define PROP_SCALE_UP 1.1f
+#define EDF_SCALE_DOWN 0.9f
+#define PROP_TO_EDF_THRUST 2.0f
+
 /// @class      AP_MotorsQuad
 class AP_MotorsTiltQuad : public AP_MotorsMatrix {
 public:

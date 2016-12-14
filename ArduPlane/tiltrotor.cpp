@@ -184,7 +184,14 @@ void QuadPlane::tilt_compensate(float *thrust, uint8_t num_motors)
     //if only a little bit of tilt keep yaw controlling
     if(control_tilt && tilt.current_tilt > Q_TILT_FREEZE_YAW_RAD){
         //-1 for the sim
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+        thrust[4] = (tilt.current_tilt*1.5708)*-1; 
+        thrust[5] = (tilt.current_tilt*1.5708)*-1; 
+#else
         thrust[4] = (tilt.current_tilt*1.5708)*1; 
         thrust[5] = (tilt.current_tilt*1.5708)*1; 
+#endif
+
     }
 }

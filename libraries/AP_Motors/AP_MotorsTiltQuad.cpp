@@ -32,7 +32,7 @@ const AP_Param::GroupInfo AP_MotorsTiltQuad::var_info[] = {
     // use tricopter param group.... not proud
 
     AP_GROUPINFO("YAW_SV_L_RV", 30, AP_MotorsTiltQuad, _yaw_left_reverse, -1),
-    AP_GROUPINFO("YAW_SV_R_RV", 31, AP_MotorsTiltQuad, _yaw_right_reverse, -1),
+    AP_GROUPINFO("YAW_SV_R_RV", 31, AP_MotorsTiltQuad, _yaw_right_reverse, 1),
     AP_GROUPINFO("YAW_SV_L_TR", 32, AP_MotorsTiltQuad, _yaw_left_servo_trim, 1500),
     AP_GROUPINFO("YAW_SV_R_TR", 33, AP_MotorsTiltQuad, _yaw_right_servo_trim, 1500),
     AP_GROUPINFO("YAW_SV_L_MN", 34, AP_MotorsTiltQuad, _yaw_left_servo_min, 1000),
@@ -55,7 +55,7 @@ void AP_MotorsTiltQuad::setup_motors()
     add_motor(AP_MOTORS_MOT_1,  90, 0, 2); //c5 right wing
     add_motor(AP_MOTORS_MOT_2, -90, 0, 4); //c6 left wing
     add_motor(AP_MOTORS_MOT_3,   0, 0,  1); //c7 front edf
-    add_motor(AP_MOTORS_MOT_4, 180, 0,  3); //c8 right edf
+    add_motor(AP_MOTORS_MOT_4, 180, 0,  3); //c8 back edf
 
     //Add servos
     add_motor_num(AP_MOTORS_CH_TILTQUAD_YAW_LEFT);
@@ -123,16 +123,29 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
     AP_MotorsMatrix::output_armed_stabilizing();
 
     //Now we need to do thrust compensation
-    //how i dont know
-
-    //disable for now but works in sim
-    //did i get the motor right
-//    _thrust_rpyt_out[0] = _thrust_rpyt_out[0]/cosf(_pivot_angle_right);
-    //   _thrust_rpyt_out[1] = _thrust_rpyt_out[1]/cosf(_pivot_angle_left);
+    //_thrust_rpyt_out[0] = constrain_float( _thrust_rpyt_out[0]/cosf(_pivot_angle_right),0.0f, 1.0f);
+    //_thrust_rpyt_out[1] = constrain_float( _thrust_rpyt_out[1]/cosf(_pivot_angle_left), 0.0f, 1.0f);
 
     //should also constrain the angle if we have maxed out the thrust
 
-    //here is also where i would scale the props over the edfs
+    //now we apply scaling to put more weight on the props
+/*
+    float highestprop;
+    if(_thrust_rpyt_out[0] > _thrust_rpyt_out[1])
+    {
+        highestprop = _thrust_rpyt_out[0];
+    }
+    else{
+        highestprop = _thrust_rpyt_out[1];
+    }
+*/
+    /*
+    _thrust_rpyt_out[0] = constrain_float(_thrust_rpyt_out[0] * PROP_SCALE_UP,0.0f,1.0f); 
+    _thrust_rpyt_out[1] = constrain_float(_thrust_rpyt_out[1] * PROP_SCALE_UP,0.0f,1.0f); 
+    _thrust_rpyt_out[2] = constrain_float(_thrust_rpyt_out[2] * EDF_SCALE_DOWN,0.0f,1.0f); 
+    _thrust_rpyt_out[3] = constrain_float(_thrust_rpyt_out[3] * EDF_SCALE_DOWN,0.0f,1.0f); 
+    */
+
 }
 
 
@@ -142,8 +155,8 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
 
     if(left)
     {
-        //if (_yaw_left_reverse < 0) {
-    if(true){
+        if (_yaw_left_reverse < 0) {
+            //if(true){
         yaw_input = -yaw_input;
     }
 
@@ -155,7 +168,8 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
     }
     else 
     {
-        if (false) {
+        if (_yaw_right_reverse < 0) {
+            //if (false) {
             yaw_input = -yaw_input;
         }
 
