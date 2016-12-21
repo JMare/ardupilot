@@ -15,8 +15,8 @@
 #define FRONT_EDF 2
 #define BACK_EDF 3
 
-#define PROP_SCALE_UP 1.1f
-#define EDF_SCALE_DOWN 0.9f
+#define PROP_SCALE_UP 1.2f
+#define EDF_SCALE_DOWN 0.7f
 #define PROP_TO_EDF_THRUST 2.0f
 
 /// @class      AP_MotorsQuad

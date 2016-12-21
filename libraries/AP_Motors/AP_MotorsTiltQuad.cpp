@@ -129,7 +129,7 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
     //should also constrain the angle if we have maxed out the thrust
 
     //now we apply scaling to put more weight on the props
-/*
+    /*
     float highestprop;
     if(_thrust_rpyt_out[0] > _thrust_rpyt_out[1])
     {
@@ -138,13 +138,23 @@ void AP_MotorsTiltQuad::output_armed_stabilizing()
     else{
         highestprop = _thrust_rpyt_out[1];
     }
-*/
-    /*
-    _thrust_rpyt_out[0] = constrain_float(_thrust_rpyt_out[0] * PROP_SCALE_UP,0.0f,1.0f); 
-    _thrust_rpyt_out[1] = constrain_float(_thrust_rpyt_out[1] * PROP_SCALE_UP,0.0f,1.0f); 
-    _thrust_rpyt_out[2] = constrain_float(_thrust_rpyt_out[2] * EDF_SCALE_DOWN,0.0f,1.0f); 
-    _thrust_rpyt_out[3] = constrain_float(_thrust_rpyt_out[3] * EDF_SCALE_DOWN,0.0f,1.0f); 
     */
+    //_thrust_rpyt_out[0] = constrain_float(_thrust_rpyt_out[0] * PROP_SCALE_UP,0.0f,1.0f); 
+    //_thrust_rpyt_out[1] = constrain_float(_thrust_rpyt_out[1] * PROP_SCALE_UP,0.0f,1.0f); 
+    /*
+    if(_thrust_rpyt_out[2] < 0.5f){
+        _thrust_rpyt_out[2] = constrain_float(_thrust_rpyt_out[2] * 0.5f,0.0f,1.0f); 
+    } else{
+        _thrust_rpyt_out[2] = constrain_float((_thrust_rpyt_out[2] * 1.5f)-0.5f,0.0f,1.0f); 
+    }
+    if(_thrust_rpyt_out[3] < 0.5f){
+        _thrust_rpyt_out[3] = constrain_float(_thrust_rpyt_out[3] * 0.5f,0.0f,1.0f); 
+    } else{
+        _thrust_rpyt_out[3] = constrain_float((_thrust_rpyt_out[3] * 1.5f)-0.5f,0.0f,1.0f); 
+    }
+    */
+    //_thrust_rpyt_out[2] = constrain_float(_thrust_rpyt_out[2] * 0.7f,0.0f,1.0f); 
+    //_thrust_rpyt_out[3] = constrain_float(_thrust_rpyt_out[3] * 0.7f,0.0f,1.0f); 
 
 }
 
@@ -156,7 +166,6 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
     if(left)
     {
         if (_yaw_left_reverse < 0) {
-            //if(true){
         yaw_input = -yaw_input;
     }
 
@@ -169,7 +178,6 @@ int16_t AP_MotorsTiltQuad::calc_yaw_radio_output(float yaw_input, float yaw_inpu
     else 
     {
         if (_yaw_right_reverse < 0) {
-            //if (false) {
             yaw_input = -yaw_input;
         }
 
