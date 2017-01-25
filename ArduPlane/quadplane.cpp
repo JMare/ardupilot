@@ -959,10 +959,10 @@ void QuadPlane::update_transition(void)
         plane.control_mode == ACRO ||
         plane.control_mode == TRAINING) {
         // in manual modes quad motors are always off
-        if (!tilt.motors_active) {
+         if (!tilt.motors_active) {
             motors->set_desired_spool_state(AP_Motors::DESIRED_SHUT_DOWN);
-            motors->output();
-        }
+           motors->output();
+             }
         transition_state = TRANSITION_DONE;
         assisted_flight = false;
         return;
@@ -1051,10 +1051,16 @@ void QuadPlane::update_transition(void)
     }
 
     case TRANSITION_DONE:
-        if (!tilt.motors_active) {
-            motors->set_desired_spool_state(AP_Motors::DESIRED_SHUT_DOWN);
-            motors->output();
-        }
+          if (!tilt.motors_active) {
+                  motors->set_desired_spool_state(AP_Motors::DESIRED_SHUT_DOWN);
+                motors->output();
+         }
+          else{
+              motors->set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED);
+              motors->output();
+          }
+            //motors->set_desired_spool_state(AP_Motors::DESIRED_THROTTLE_UNLIMITED); //this is the fuckeyr that makes transition work
+            //motors_output();
         break;
     }
 }

@@ -34,11 +34,12 @@ void QuadPlane::tiltrotor_update(void)
 {
     if (tilt.tilt_mask <= 0) {
         // no motors to tilt
-        return;
+          return;
     }
 
     // default to inactive
-    tilt.motors_active = false;
+       tilt.motors_active = false;
+    // tilt.motors_active = true; //DANGEROUS
 
     // the maximum rate of throttle change
     float max_change = (tilt.max_rate_dps.get() * plane.G_Dt) / 90.0f;
@@ -47,6 +48,7 @@ void QuadPlane::tiltrotor_update(void)
         // we are in pure fixed wing mode. Move the tiltable motors all the way forward and run them as
         // a forwarhttps://www.google.com.au/search?client=ubuntu&channel=fs&q=r%2Fmavproxy&ie=utf-8&oe=utf-8&gfe_rd=cr&ei=XuM8WLXHGa7u8wf7np7YDAd motor
         tiltrotor_slew(1);
+        control_tilt = true;
 
         float new_throttle = plane.channel_throttle->get_servo_out()*0.01f;
         if (tilt.current_tilt < 1) {
@@ -57,7 +59,7 @@ void QuadPlane::tiltrotor_update(void)
             tilt.current_throttle = new_throttle;
         }
         if (!hal.util->get_soft_armed()) {
-            tilt.current_throttle = 0;
+                    tilt.current_throttle = 0;
         } else {
             motors->output_motor_mask(tilt.current_throttle, (uint8_t)tilt.tilt_mask.get());
             // prevent motor shutdown

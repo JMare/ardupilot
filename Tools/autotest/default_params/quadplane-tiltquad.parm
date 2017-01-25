@@ -77,7 +77,6 @@ RC12_MAX         2000
 RTL_RADIUS       80
 Q_RTL_MODE       2
 ALT_HOLD_RTL     2000
-Q_M_YAW_SV_R_RV  -1
 
 
 
